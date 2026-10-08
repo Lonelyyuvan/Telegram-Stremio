@@ -99,7 +99,7 @@ async def _announce(info: dict) -> None:
         return
 
     caption = _build_caption(info)
-    poster = info.get("backdrop") or info.get("poster")
+    poster = info.get("poster") or info.get("backdrop")
     markup = _build_markup(info)
 
     try:
