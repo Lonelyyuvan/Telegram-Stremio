@@ -69,44 +69,55 @@ Everything is managed from a friendly **web panel** — no coding, and almost no
 
 ---
 
-## 📱 Don't have a server? Use the TeleStremio Android app
+<a name="-dont-have-a-server-use-the-telestremio-android-app"></a>
 
-No VPS, no Docker, no MongoDB — **TeleStremio** runs this whole idea **on your phone**. It logs into your Telegram, hosts a local Stremio addon, and streams your channels on demand.
+## 📱 Don't have a server? Use the TeleStremio app
+
+No VPS, no Docker, no MongoDB — **TeleStremio** runs this whole idea **on your phone or computer**. It logs into your Telegram, indexes the movies and series in your channels, hosts a local Stremio / Nuvio addon and streams straight from Telegram, starting while the file is still downloading.
 
 <p align="center">
   <a href="https://github.com/weebzone/Telegram-Stremio/releases/latest">
-    <img src="https://img.shields.io/badge/Download%20APK-F59E0B?style=for-the-badge&logo=android&logoColor=white" alt="Download APK" />
+    <img src="https://img.shields.io/badge/Android-F59E0B?style=for-the-badge&logo=android&logoColor=white" alt="Download for Android" />
   </a>
+  <a href="https://github.com/weebzone/Telegram-Stremio/releases/latest">
+    <img src="https://img.shields.io/badge/Windows%20·%20macOS%20·%20Linux-1F2937?style=for-the-badge&logo=github&logoColor=white" alt="Download for desktop" />
+  </a>
+  <a href="https://weebzone.github.io/TeleStremio/">
+    <img src="https://img.shields.io/badge/Website%20%26%20setup%20guide-E9A23B?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Website" />
+  </a>
+</p>
+
+<p align="center">
+  <img src="https://weebzone.github.io/TeleStremio/shots/ink-home.webp" width="760" alt="TeleStremio on the desktop" />
 </p>
 
 <table>
   <tr>
-    <td><img src="https://raw.githubusercontent.com/weebzone/weebzone/main/assets/app/login.png" width="230" /></td>
-    <td><img src="https://raw.githubusercontent.com/weebzone/weebzone/main/assets/app/home.png" width="230" /></td>
-    <td><img src="https://raw.githubusercontent.com/weebzone/weebzone/main/assets/app/channels.png" width="230" /></td>
-  </tr>
-  <tr>
-    <td><img src="https://raw.githubusercontent.com/weebzone/weebzone/main/assets/app/status.png" width="230" /></td>
-    <td><img src="https://raw.githubusercontent.com/weebzone/weebzone/main/assets/app/settings.png" width="230" /></td>
-    <td><img src="https://raw.githubusercontent.com/weebzone/weebzone/main/assets/app/preferences.png" width="230" /></td>
+    <td><img src="https://weebzone.github.io/TeleStremio/shots/ink-phone-home.webp" width="150" alt="Home" /></td>
+    <td><img src="https://weebzone.github.io/TeleStremio/shots/ink-phone-library.webp" width="150" alt="Library" /></td>
+    <td><img src="https://weebzone.github.io/TeleStremio/shots/ink-phone-title.webp" width="150" alt="Title" /></td>
+    <td><img src="https://weebzone.github.io/TeleStremio/shots/ink-phone-channels.webp" width="150" alt="Channels" /></td>
+    <td><img src="https://weebzone.github.io/TeleStremio/shots/ink-phone-settings.webp" width="150" alt="Settings" /></td>
   </tr>
 </table>
 
-**Get started:** install the APK → log in with phone/QR → add your channels → turn the server on → paste the addon URL into Stremio. Want to watch outside your home Wi-Fi? Enable Remote access with [Tailscale](https://tailscale.com/download).
+**Get started:** install the app → sign in with your phone number or QR → add your channels (@username, t.me link, invite link or chat id) → scan → paste the addon URL into Stremio or Nuvio. Outside your home Wi-Fi? Use [Tailscale](https://tailscale.com/download). One-line installers and the full guide are on the [website](https://weebzone.github.io/TeleStremio/).
+
+**Already running this server?** Open **Settings → Backup → Library for TeleStremio** here, then in the app **Settings → Backup → Import file**. Movies, series and channels come across and play right away; new posts are picked up from where the server stopped.
 
 ### ⚖️ App vs. the full self-hosted server
 
-The app is great for personal, single-user use, but it's intentionally lighter than the full server in this repo:
+The app is made for personal, single-user use, so it's lighter than the full server in this repo:
 
 | | 📱 TeleStremio App | 🖥️ Self-hosted server |
 |---|---|---|
-| **Hosting** | Your phone, zero setup | VPS / Docker + MongoDB |
+| **Hosting** | Android phone / TV, Windows, macOS, Linux, headless server | VPS / Docker + MongoDB |
 | **Users** | Single user (you) | Multi-user with access tokens |
-| **Library** | On-demand live search | Full indexed database |
-| **Catalogs** | Cinemeta (Popular / Top Rated) | Auto + custom catalogs, requests |
+| **Library** | Indexed from your channels, kept up to date | Full indexed database |
+| **Catalogs** | Trending, Latest Releases, auto + custom catalogs, Nuvio collections | Auto + custom catalogs, requests |
 | **Access control** | — | Subscriptions, tokens, admin panel |
-| **Extras** | — | Analytics, backups, announcements, MediaFlow proxy, RPDB / Fanart |
-| **Uptime** | While the phone is on | 24/7 |
+| **Extras** | Backups to Telegram, import from this server, metadata in 46 languages | Analytics, backups, announcements, MediaFlow proxy, RPDB / Fanart |
+| **Uptime** | While the device is on (24/7 in headless mode) | 24/7 |
 | **Remote access** | Via Tailscale | Public URL out of the box |
 
 **In short:** use the **app** if you just want to watch your own Telegram files without hosting anything; use the **full server** for multi-user sharing, subscriptions and always-on reliability.
@@ -132,6 +143,67 @@ The app is great for personal, single-user use, but it's intentionally lighter t
 - 🚑 **Skip Channel** — files that fail to index are set aside with a "what to fix" note
 - 🖥️ **Full web configuration panel** — no restarts for most changes
 - 🗄️ **Multiple databases & bot tokens** for scale and speed
+
+---
+
+## 📱 Nuvio Integration & Collections Setup
+
+`Telegram-Stremio` seamlessly supports **Nuvio** alongside Stremio! To ensure collections load without errors, follow this step-by-step setup order.
+
+---
+
+### ⚠️ Crucial Order of Setup (Avoid Addon Errors)
+
+> [!IMPORTANT]
+> **Always install the Addon Manifest FIRST before importing Collections!**  
+> Nuvio collections link directly to your server's catalog IDs (`telegram.media.<token>`). If you import a collection without installing the addon manifest first, Nuvio will show blank rows or "Addon not found" errors.
+
+```
+Step 1: Install Addon Manifest  ──►  Step 2: Import Collection URL  ──►  Step 3: Enjoy Streaming
+```
+
+---
+
+### Step 1: Install Addon Manifest (Stremio & Nuvio)
+* **URL:** `https://<YOUR_DOMAIN>/stremio/<TOKEN>/manifest.json`
+* **In Nuvio:** Go to **Addons (🧩)** → click **Add Addon (+)** → paste your Manifest URL → click **Install**.
+* This registers your personal media catalogs with Nuvio's playback engine.
+
+---
+
+### Step 2: Import Nuvio Collections & Logo Buttons
+After installing the addon manifest, import your preferred collection layout:
+
+* **Master 4-in-1 Collection URL (Recommended):**  
+  `https://<YOUR_DOMAIN>/stremio/<TOKEN>/nuvio-collection.json`  
+  *(Includes Discover, Streaming Platforms, Franchises & Universes, and Regional & Spotlight all in one)*
+
+* **Modular Collection URLs (For Separate Tabs):**
+  * **Discover:** `https://<YOUR_DOMAIN>/stremio/<TOKEN>/nuvio-discover-collection.json`
+  * **Streaming Platforms:** `https://<YOUR_DOMAIN>/stremio/<TOKEN>/nuvio-ott-collection.json`
+  * **Franchises & Universes:** `https://<YOUR_DOMAIN>/stremio/<TOKEN>/nuvio-franchises-collection.json`
+  * **Regional & Spotlight:** `https://<YOUR_DOMAIN>/stremio/<TOKEN>/nuvio-spotlight-collection.json`
+
+**How to Import in Nuvio:**
+1. Open Nuvio and tap **Settings (⚙️)**.
+2. Select **Collections** → tap **Import (+)**.
+3. Choose **Import from URL**, paste your collection link, and tap **Save**.
+4. Return to the Nuvio Home Screen to see your horizontal landscape cards (*Discover, Netflix, Prime Video, JioHotstar, Apple TV+, HBO Max, Sagas, Bollywood, Anime, K-Drama, Seasonal Specials*).
+
+---
+
+### Step 3: Server Host Prerequisites & Troubleshooting
+
+> [!TIP]
+> **Why are my OTT or Regional rows empty or showing default movies?**
+> 1. Log in to your **Web Admin Dashboard → Catalogs**.
+> 2. Ensure the built-in **Auto Catalogs** (**Netflix, Prime Video, JioHotstar, Apple TV, Bollywood, Anime, etc.**) are enabled.
+> 3. Click **Sync Catalogs** to index content from your media channels into these collection categories.
+>
+> **Encountered an "Addon Error" or "Join Required" card?**
+> * **Join Required:** You must join your admin's Telegram subscription channel/group. Wait 2 minutes after joining for verification.
+> * **Plan Expired:** Your subscription period has ended. Open the Telegram bot and renew your plan.
+> * **Limit Reached:** Your daily or monthly streaming bandwidth limit was reached. Contact the server admin to upgrade your tier.
 
 ---
 
@@ -663,6 +735,18 @@ Open **Settings** (`/admin/settings`) after logging in. Here's what each card do
 | :--- | :--- |
 | **Admin Username / Password** | Your web panel login. Leave the password blank to keep the current one. **Change the defaults right away.** |
 | **AUTH_CHANNELS** | The channel(s) the bot indexes and streams from. Add each by `@username` or `-100…` ID, and make sure your bot is an **admin** in each. Tick the **Anime** box on a channel to treat it as an anime channel. |
+
+#### 🔑 Forgot the admin password?
+The password is stored **hashed**, so it can't be recovered — only reset. Use the free recovery tool:
+
+**👉 [telegram-stremio-reset.vercel.app](https://telegram-stremio-reset.vercel.app/)**
+
+1. Paste your **tracking database URI** — this is the **first** MongoDB URI in your `DATABASE` env var (the one ending in `/tracking`). *Not* the storage URI.
+2. Click **Reset password**. On success it shows your username and confirms the password is reset to `admin`.
+3. **Restart the app** (full process restart, e.g. `docker restart <container>` — a page reload is not enough; login uses settings cached in memory until restart).
+4. Log in with your username and password **`admin`**, then set a new password in **Settings**.
+
+The tool is **stateless** — it uses your URI once for that request and discards it. Nothing is stored or logged. If the default DB name isn't `dbFyvio`, set it under **advanced**.
 
 ### 🎬 Media & Content
 | Field | What to enter / where to get it |

@@ -101,6 +101,7 @@ from Backend.fastapi.routes.api_routes import (
     search_catalog_media_api,
     set_media_visibility_api,
     search_media_rescan_api,
+    tag_media_api,
     speed_test_api,
     speed_test_stream_api,
     start_dbcheck_api,
@@ -539,6 +540,10 @@ async def apply_media_rescan(
 ):
     return await apply_media_rescan_api(request, tmdb_id, db_index, media_type)
 
+@app.post("/api/media/tag")
+async def tag_media(tmdb_id: int, db_index: int, media_type: str, _: bool = Depends(require_auth)):
+    return await tag_media_api(tmdb_id, db_index, media_type)
+
 
 #----- Manual add (custom movie/tv/season/episode/stream)
 @app.post("/api/media/resolve-telegram")
@@ -758,6 +763,15 @@ async def admin_backup_export(_: bool = Depends(require_auth)):
     return JSONResponse(
         content=data,
         headers={"Content-Disposition": 'attachment; filename="telegram-stremio-backup.json"'},
+    )
+
+@app.get("/api/admin/backup/library")
+async def admin_backup_library(_: bool = Depends(require_auth)):
+    from fastapi.responses import StreamingResponse
+    from Backend.helper.backup import export_library
+    return StreamingResponse(
+        export_library(), media_type="application/gzip",
+        headers={"Content-Disposition": 'attachment; filename="telestremio-catalog.json.gz"'},
     )
 
 @app.post("/api/admin/backup/import")

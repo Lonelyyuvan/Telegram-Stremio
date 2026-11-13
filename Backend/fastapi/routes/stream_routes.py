@@ -14,6 +14,7 @@ from fastapi.responses import StreamingResponse
 
 from Backend import db
 from Backend.fastapi.security.tokens import verify_token
+from Backend.helper.bounded import BoundedDict
 from Backend.helper.analytics import client_ip_from, record_stream_start
 from Backend.helper.custom_dl import ACTIVE_STREAMS, RECENT_STREAMS, ByteStreamer
 from Backend.helper.encrypt import decode_string
@@ -37,7 +38,7 @@ router = APIRouter(tags=["Streaming"])
 _streamer_by_client: Dict = {}
 _rr_counter: int = 0
 
-_title_cache: Dict[str, tuple] = {}
+_title_cache = BoundedDict(2000)
 _TITLE_CACHE_TTL = 300
 
 
@@ -128,6 +129,11 @@ def _get_streamer(tg_client, index: int) -> ByteStreamer:
     return _streamer_by_client[tg_client]
 
 
+def warm_streamers() -> None:
+    for index, client in list(multi_clients.items()):
+        _get_streamer(client, index)
+
+
 def _prefetch_for(index: int) -> tuple[int, int]:
     return (1, 1) if index == USERBOT_CLIENT_INDEX else get_parallel_prefetch(len(multi_clients) - 1)
 
@@ -189,7 +195,7 @@ def _build_stream_headers(mime_type, file_name, req_length, range_header, start,
     return headers, status
 
 
-_thumb_cache: Dict[str, tuple] = {}
+_thumb_cache = BoundedDict(200)
 _THUMB_CACHE_TTL = 3600
 
 
